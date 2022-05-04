@@ -18,13 +18,18 @@ class NumberTable1 extends React.Component {
     }
    
     onAddClick = () => {
+        function randomNum(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
         const { numbers, number } = this.state;
-        const randomNumber = Math.random();
+        const randomNumber = randomNum(1, 1000);
         this.setState({ number: { numberString: randomNumber, id: uuidv4() }});
         const copy = [...numbers, number];
         this.setState({ numbers: copy });
+        
 
     };
+ 
 
     onSelectClick = p => {
 
@@ -65,7 +70,7 @@ class NumberTable1 extends React.Component {
     }
 
     render() {
-        const { number, numbers, selectedNumbers, lockedNumbers } = this.state;
+        const { number, numbers, selectedNumbers, lockedNumbers, numberString } = this.state;
         return (
             <div className='container mt-5'>
                 <div className='row'>
@@ -89,6 +94,7 @@ class NumberTable1 extends React.Component {
                                     onSelectClick={() => this.onSelectClick(n)}
                                     onUnselectClick={() => this.onUnselectClick(n)}
                                     number={n}
+                                    numberString={this.setState.number.numberString}
                                     isSelected={this.isSelected(n)}
                                     key={i} />
                             })
